@@ -55,4 +55,4 @@ packages_to_remove.each do |package|
       "#{package.name}: remove #{package.is_a?(Formula) ? "formula" : "cask"}", "--quiet"
 end
 
-File.open("./output.txt", "a") { |f| f.puts("packages-removed=true") }
+File.open(ENV.fetch("GITHUB_OUTPUT", nil), "a") { |f| f.puts("packages-removed=true") }
