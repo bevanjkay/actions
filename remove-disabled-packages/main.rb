@@ -9,7 +9,7 @@ require "formula"
 require "cask"
 
 ONE_YEAR_AGO = (Date.today << 12).freeze
-TARGET_TAP = ENV.fetch("GITHUB_REPOSITORY").freeze
+TARGET_TAP = Tap.fetch(ENV.fetch("GITHUB_REPOSITORY")).freeze
 
 def git(*args)
   system "git", *args
