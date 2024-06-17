@@ -16,7 +16,7 @@ def git(*args)
   exit $CHILD_STATUS.exitstatus unless $CHILD_STATUS.success?
 end
 
-def find_disabled(packages: [], target_tap:)
+def find_disabled(packages: [], target_tap: target_tap)
   packages.select do |package|
     next false if package.tap != target_tap
     next false unless package.disabled?
