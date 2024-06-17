@@ -1,6 +1,3 @@
-# typed: true
-# frozen_string_literal: true
-
 require "formula"
 require "cask"
 
@@ -9,7 +6,7 @@ target_tap = Tap.fetch(ENV.fetch("GITHUB_REPOSITORY"))
 
 def git(*args)
   system "git", *args
-  exit $CHILD_STATUS.exitstatus unless $CHILD_STATUS.success?
+  exit $?.exitstatus unless $?.success?
 end
 
 def find_disabled(packages: [], target_tap:)
