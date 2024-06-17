@@ -45,9 +45,10 @@ end
 git "-C", tap_dir.to_s, "add", "--all"
 
 packages_to_remove.each do |package|
-  puts "Removed `#{package.is_a?(Formula) ? package.name : package.token.to_s}`."
+  name = package.is_a?(Formula) ? package.name : package.token
+  puts "Removed `#{name}`."
   git "-C", tap_dir.to_s, "commit", sourcefile_path(package), "--message",
-      "#{package.name}: remove #{package.is_a?(Formula) ? "formula" : "cask"}", "--quiet"
+      "#{name}: remove #{package.is_a?(Formula) ? "formula" : "cask"}", "--quiet"
 end
 
 File.open(ENV['GITHUB_OUTPUT'], 'a') { |f| f.puts('packages-removed=true') }
