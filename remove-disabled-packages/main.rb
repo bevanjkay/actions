@@ -16,7 +16,7 @@ def git(*args)
   exit $CHILD_STATUS.exitstatus unless $CHILD_STATUS.success?
 end
 
-def find_disabled(packages: [], target_tap: target_tap)
+def find_disabled(packages: [], target_tap:)
   packages.select do |package|
     next false if package.tap != target_tap
     next false unless package.disabled?
@@ -34,7 +34,7 @@ end
 
 puts "Finding disabled packages..."
 
-packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all)
+packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all, target_tap)
 
 packages_to_remove.each { |package| FileUtils.rm sourcefile_path(package) }
 
