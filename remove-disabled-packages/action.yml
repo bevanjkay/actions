@@ -6,7 +6,7 @@ branding:
 outputs:
   packages-removed:
     description: Whether any formulae were removed or not
-    value: ${{steps.remove_packages.outputs.packages-removed}}
+    value: ${{steps.remove-packages.outputs.packages-removed}}
 runs:
   using: composite
   steps:
