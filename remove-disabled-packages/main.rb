@@ -24,7 +24,7 @@ packages_to_remove = find_disabled(packages: Formula.installed + Cask::Caskroom.
 
 packages_to_remove.each { |package| FileUtils.rm package.path }
 
-tap_dir = Tap.fetch('homebrew/core').path
+tap_dir = Tap.fetch(ENV.fetch("GITHUB_REPOSITORY")).path
 
 out, err, status = Open3.capture3 'git', '-C', tap_dir.to_s, 'status', '--porcelain', '--ignore-submodules=dirty'
 raise err unless status.success?
