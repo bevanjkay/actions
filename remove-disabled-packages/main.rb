@@ -34,7 +34,7 @@ end
 
 puts "Finding disabled packages..."
 
-packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all, target_tap)
+packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all, target_tap: target_tap)
 
 packages_to_remove.each { |package| FileUtils.rm sourcefile_path(package) }
 
