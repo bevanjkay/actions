@@ -54,7 +54,7 @@ puts "Removing disabled packages..."
 git "-C", tap_dir.to_s, "add", "--all"
 
 packages_to_remove.each do |package|
-  puts "Removed `#{package.name}`."
+  puts "Removed `#{package.token.to_s}`."
   git "-C", tap_dir.to_s, "commit", sourcefile_path(package), "--message",
       "#{package.name}: remove #{package.is_a?(Formula) ? "formula" : "cask"}", "--quiet"
 end
