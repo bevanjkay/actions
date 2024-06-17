@@ -9,7 +9,7 @@ require "formula"
 require "cask"
 
 ONE_YEAR_AGO = (Date.today << 12).freeze
-TARGET_TAP = Tap.fetch(ENV.fetch("GITHUB_REPOSITORY")).freeze
+TARGET_TAP_PATH = Tap.fetch(ENV.fetch("GITHUB_REPOSITORY")).path
 
 def git(*args)
   system "git", *args
@@ -18,7 +18,7 @@ end
 
 def find_disabled(packages: [])
   packages.select do |package|
-    next false if package.tap != TARGET_TAP.path
+    next false if package.tap != TARGET_TAP_PATH
     next false unless package.disabled?
     next false if package.disable_date.nil?
 
@@ -38,7 +38,7 @@ packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all)
 
 packages_to_remove.each { |package| FileUtils.rm sourcefile_path(package) }
 
-tap_dir = TARGET_TAP.path
+tap_dir = TARGET_TAP_PATH
 
 out, err, status = Open3.capture3 "git", "-C", tap_dir.to_s, "status", "--porcelain", "--ignore-submodules=dirty"
 raise err unless status.success?
