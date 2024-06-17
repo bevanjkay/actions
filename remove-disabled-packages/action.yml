@@ -4,9 +4,9 @@ branding:
   icon: trash-2
   color: red
 outputs:
-  formulae-removed:
+  packages-removed:
     description: Whether any formulae were removed or not
-    value: ${{steps.remove-formulae.outputs.packages-removed}}
+    value: ${{steps.remove_packages.outputs.packages-removed}}
 runs:
   using: composite
   steps:
