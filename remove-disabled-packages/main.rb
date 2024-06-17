@@ -20,7 +20,7 @@ class RemoveDisabledPackages
 
     packages_to_remove.each { |package| FileUtils.rm sourcefile_path(package) }
 
-    tap_dir = target_tap.path
+    tap_dir = @target_tap.path
 
     out, err, status = Open3.capture3 "git", "-C", tap_dir.to_s, "status", "--porcelain", "--ignore-submodules=dirty"
     raise err unless status.success?
