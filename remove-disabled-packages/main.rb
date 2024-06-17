@@ -14,7 +14,7 @@ class RemoveDisabledPackages
   end
 
   def run
-    packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all, target_tap:)
+    packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all)
 
     puts "Removing old packages..."
 
@@ -50,10 +50,10 @@ class RemoveDisabledPackages
     exit $CHILD_STATUS.exitstatus unless $CHILD_STATUS.success?
   end
 
-  def find_disabled(target_tap:, packages: [])
+  def find_disabled(packages: [])
     puts "Finding disabled packages..."
     packages.select do |package|
-      next false if package.tap != target_tap
+      next false if package.tap != @target_tap
       next false unless package.disabled?
       next false if package.disable_date.nil?
 
