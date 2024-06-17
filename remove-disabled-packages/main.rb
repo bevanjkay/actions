@@ -10,6 +10,7 @@ def git(*args)
 end
 
 def find_disabled(packages: [], target_tap:)
+  puts "Finding disabled packages..."
   packages.select do |package|
     next false if package.tap != target_tap
     next false unless package.disabled?
@@ -23,9 +24,9 @@ def sourcefile_path(package)
   package.is_a?(Formula) ? package.path : package.sourcefile_path
 end
 
-puts "Finding disabled packages..."
-
 packages_to_remove = find_disabled(packages: Formula.all + Cask::Cask.all, target_tap: target_tap)
+
+puts "Removing old packages..."
 
 packages_to_remove.each { |package| FileUtils.rm sourcefile_path(package) }
 
@@ -40,7 +41,6 @@ if out.chomp.empty?
   exit
 end
 
-puts "Removing disabled packages..."
 
 git "-C", tap_dir.to_s, "add", "--all"
 
